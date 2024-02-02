@@ -35,6 +35,8 @@ const enhanceReducer = (reducer) => (state, action) => {
   if (typeof lazyReducers === 'function' && action.lazy !== false) {
     newState = lazyReducers(newState, action)
   } else {
+    // add hint that lazy reducer was not loaded and therefor not used for this action
+    // only needed when devtools are enabled, cause actions might be rerun after store.replaceReducer
     action.lazy = false;
   }
   return newState;
